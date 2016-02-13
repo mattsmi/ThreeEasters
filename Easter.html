@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Easter Date Calculated for a given Year</title>
+<!-- Bootstrap CSS and bootstrap datepicker CSS used for styling the demo pages-->
+<link rel="stylesheet" href="./generic/css/datepicker.css">
+<link rel="stylesheet" href="./generic/css/bootstrap.min.css">
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+	<div class="container">
+		<h1>Calculate the Date of Easter</h1>
+		<h2>for any given year</h2>
+		<p>This page calculates the date of Easter for the given year,
+			according to the Gregorian, Julian, and Revised Julian (or
+			Milanković) calendars.</p>
+		<form id="formEasterSubmit" class="form-horizontal" 
+			method="post" action="EasterDate.php">
+			<div class="form-group">
+				<label for="dp1" class="col-sm-2 control-label">Year:</label>
+				<div class="col-sm-3">
+				
+					<input type="text" placeholder="Click to choose the year!" 
+						name="yearValue" id="dp1" class="form-control">
+
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button id="getEasterDate" class="btn btn-default" type="submit">Calculate
+						Easter</button>
+				</div>
+			</div>
+		</form>
+		<h3>Notes</h3>
+		<h4>Easter Dating Method</h4>
+		<p>Today all Western countries &mdash; and almost all others &mdash; use the Gregorian Calendar 
+		as their civil calendar. 
+		The <a href="http://www.vatican.va">Roman Catholic Church</a> uses the Gregorian Calendar for calculating 
+		the date of Easter, as do the
+		<a href="http://www.ort.fi/en">Finnish Orthodox Church</a> and several Eastern Catholic Churches
+		(e.g. the <a href="http://www.bkerkelb.org/english/index.php">Syriac Maronite Church of Antioch</a>, 
+		the <a href="http://www.pgc-lb.org/home">Melkite Greek-Catholic Church</a>).</p>
+		<p>Most Eastern Orthodox Churches (e.g. the 
+		<a href="http://www.ec-patr.org">Ecumenical Patriarchate of Constantinople</a>, 
+		the <a href="http://www.ecclesia.gr">Church of Greece</a>, 
+		the <a href="http://www.antiochpatriarchate.org">Greek Orthodox Church of Antioch</a>) calculate
+		the date of Easter according to the Julian Calendar. However, the Greek Orthodox Churches 
+		(e.g. Greek, Antiochian, Alexandrian) use the Revised Julian Calendar (or Milanković Calendar), which is 
+		similar to the Gregorian Calendar, for their fixed feasts (sanctoral cycle).
+		Dates in the Revised Julian Calendar will be the same as those in the Gregorian Calendar until 2800.
+		For this reason, they are often considered to be the same.</p>
+		<p>The <a href="http://www.patrarchia.ru">Russian Orthodox Church</a> 
+		and <a href="http://www.inathos.gr">Mount Athos</a>, and one or two others, continue to use the Julian Calendar 
+		for all feasts, however.</p>
+		<p>&nbsp;</p>
+	</div>
+	<!-- Load jQuery and bootstrap datepicker scripts -->
+	<script src="./generic/js/jquery.min.js"></script>
+	<script src="./generic/js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript">
+		// When the document is ready
+		$(document).ready(function() {
+
+			$('#dp1').datepicker({
+				format : " yyyy",
+				viewMode : "years",
+				minViewMode : "years",
+				autoclose: true,
+				setValue : new Date()
+			});
+			$('#dp1').on('changeDate', function(ev){
+			    $(this).datepicker('hide');
+			});
+
+		});
+	</script>
+</body>
+</html>
