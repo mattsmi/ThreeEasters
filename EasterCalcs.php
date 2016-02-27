@@ -13,7 +13,7 @@ define('iLAST_VALID_GREGORIAN_YEAR', 4099);
 
 function pCJDNToMilankovic($iCJDN) {
 	//The Chronological Julian Day Number (CJDN) is a whole number representing a day.
-	// Its day begins at 00.00 Local Time.
+	// It's day begins at 00.00 Local Time.
 	//Calculations from http://aa.quae.nl/en/reken/juliaansedag.html .
 	
 	$iK3 = (9 * ($iCJDN - 1721120)) + 2;
@@ -66,7 +66,8 @@ function pF10_CalcEaster($iYearArg, $iEDM = 3)
 
 function pF15_CalcDateOfEaster($iYearArg, $iEDM = 3)
 {
-	
+	//Like CLIPS, years AD 3300 and 3500 do not appear to be accurate.
+	//   Year AD 2810 wrong as above for the Gregorian calendar only.
 	$iYearToFind = intval($iYearArg);
 	$iDatingMethod = intval($iEDM);
 	//Check values of arguments
@@ -112,49 +113,39 @@ function pF15_CalcDateOfEaster($iYearArg, $iEDM = 3)
 		$iTableE = ((20 - $iTableB - $iTableC - $iTableD) % 7) + 1;
 		$imDay = $iTableA + $iTableE;
 		
+		//Convert Julian to Gregorian date
+		if($iDatingMethod == iEDM_ORTHODOX)
+		{
+			//Ten days were skipped in the Gregorian calendar 5–14 Oct 1582.
+			$iTempNum = 10;
+			//Only one in every four century years is a leap year.
+			if($iYearToFind > 1600)
+			{
+				$iTempNum = $iTempNum + $iFirstDig - 16 - floor(($iFirstDig - 16) / 4);
+			}
+			$imDay = $imDay + $iTempNum;
+		}
+		
 	} else {
 		//That is $iDatingMethod == iEDM_WESTERN
-		# Calculate the Paschal Full Moon Date
-		$iTempNum = floor(($iFirstDig - 15) / 2) + 202 - (11 * $iRemain19);
-		$lFirstList = array(21, 24, 25, 27, 28, 29, 30, 31, 32, 34, 35, 38);
-		$lSecondList = array(33, 36, 37, 39, 40);
-		if(isset($lFirstList[intval($iFirstDig)]))
-		{
-			$iTempNum = $iTempNum - 1;
-		} elseif(isset($lSecondList[intval($iFirstDig)]))
-		{
-			$iTempNum = $iTempNum - 2;
-		}
-		$iTempNum = $iTempNum % 30;
-		
-		$iTableA = $iTempNum + 21;
-		if($iTempNum == 29)
-		{
-			$iTableA = $iTableA - 1;
-		}
-		if(($iTempNum == 28) && ($iRemain19 > 10))
-		{
-			$iTableA = $iTableA - 1;
-		}
-	
-		//Find the next Sunday
-		$iTableB = ($iTableA - 19) % 7;
-		
-		$iTableC = (40 - $iFirstDig) % 4;
-		if($iTableC == 3)
-		{
-			$iTableC = $iTableC + 1;
-		}
-		if($iTableC > 1)
-		{
-			$iTableC = $iTableC + 1;
-		}
-		
-		$iTempNum = $iYearToFind % 100;
-		$iTableD = ($iTempNum + floor($iTempNum / 4)) % 7;
-		
-		$iTableE = ((20 - $iTableB - $iTableC - $iTableD) % 7) + 1;
-		$imDay = $iTableA + $iTableE;
+		//Using calculations from Ian Stewart http://www.whydomath.org/Reading_Room_Material/ian_stewart/2000_03.html .
+		$iA = $iYearToFind % 19;
+		$iB = (int)($iYearToFind / 100);
+		$iC = $iYearToFind % 100;
+		$iD = (int)($iB / 4);
+		$iE = $iB % 4;
+		$iG = (int)(((8 * $iB) + 13) / 25);
+		$iH = ((19 * $iA) + $iB - $iD - $iG + 15) % 30;
+		$iM = (int)(($iA + (11 * $iH)) / 319);
+		$iJ = (int)($iC / 4);
+		$iK = $iC % 4;
+		$iL = ((2 * $iE) + (2 * $iJ) - $iK - $iH + $iM + 32) % 7;
+		$iN = (int)(($iH - $iM + $iL + 90) / 25);
+		$iP = ($iH - $iM + $iL + $iN + 19) % 32;
+		$imDay = $iP;
+		$imMonth = $iN;
+		$dDate = mktime(0, 0, 0, $imMonth, $imDay, $iYearToFind);
+		return $dDate;
 	}
 	
 	//Return the date
@@ -170,14 +161,7 @@ function pF15_CalcDateOfEaster($iYearArg, $iEDM = 3)
 	} else {
 		$imMonth = 3;
 	}
-	
-	//Convert Julian to Gregorian date
-	if($iDatingMethod == iEDM_ORTHODOX)
-	{
-		$dDate = pCJDNToMilankovic(pJulianToCJDN($iYearToFind, $imMonth, $imDay));
-	} else {
-		$dDate = mktime(0, 0, 0, $imMonth, $imDay, $iYearToFind);
-	}
+	$dDate = mktime(0, 0, 0, $imMonth, $imDay, $iYearToFind);
 	
 	return $dDate;
 }
