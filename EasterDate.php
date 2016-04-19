@@ -8,10 +8,10 @@
 <title>Easter Date Calculated for a given Year</title>
 
 <!-- Basic Twitter Bootstrap stylesheet -->
-<link rel="stylesheet" href="./generic/css/bootstrap.min.css">
+<link rel="stylesheet" href="../generic/css/bootstrap.min.css">
 
 <!-- Theme stylesheet -->
-<link rel="stylesheet" href="./generic/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="../generic/css/bootstrap-theme.min.css">
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -25,7 +25,10 @@
 <body>
 	<div class="container">
 	<?php
-	include 'EasterCalcs.php';
+	define('page_include_allowed', TRUE);
+	include '../generic/MattaUtils/MattaTranslationFuncs.php';
+	include './EasterCalcs.php';
+
 	$value_select = $_POST ["yearValue"];
 	$dDate1 = pF10_CalcEaster ( $value_select, 1 );
 	if (! $dDate1) {
@@ -37,6 +40,7 @@
 	} else {
 		$dDate2 = pF10_CalcEaster ( $value_select, 2 );
 		$dDate3 = pF10_CalcEaster ( $value_select, 3 );
+		$dDate4 = pCJDNToMilankovic(pGregorianToCJDN(date('Y', $dDate2), date('m', $dDate2), date('d', $dDate2)));
 		?>
 	<h1>Calculate the Date of Easter</h1>
 		<h2>for the year <?php echo($value_select); ?></h2>
@@ -50,15 +54,19 @@
 		</tr>
 			
 			<tr>
-				<td>Julian Easter</td>
+				<td>Julian Easter <em>on the Julian calendar</em></td>
 				<td><?php echo(date("j F Y", $dDate1)); ?>	</td>
 			</tr>
 			<tr>
-				<td>Orthodox Easter</td>
+				<td>Orthodox Easter <em>on the Gregorian calendar</em></td>
 				<td><?php echo(date("j F Y", $dDate2)); ?>	</td>
 			</tr>
 			<tr>
-				<td>Western Easter</td>
+				<td>Orthodox Easter <em>on the Revised Julian calendar</em></td>
+				<td><?php echo(date("j F Y", $dDate4)); ?>	</td>
+			</tr>
+			<tr>
+				<td>Western Easter <em>on the Gregorian calendar</em></td>
 				<td><?php echo(date("j F Y", $dDate3)); ?>	</td>
 			</tr>
 		</table>
@@ -69,10 +77,10 @@
 	<!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./generic/js/jquery.min.js"></script>
-    <script src="./generic/js/bootstrap.min.js"></script>
+    <script src="../generic/js/jquery.min.js"></script>
+    <script src="../generic/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="./generic/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="../generic/js/ie10-viewport-bug-workaround.js"></script>
 
 </body>
 </html>

@@ -11,36 +11,6 @@ define('iFIRST_EASTER_YEAR', 326);
 define('iFIRST_VALID_GREGORIAN_YEAR', 1583);
 define('iLAST_VALID_GREGORIAN_YEAR', 4099);
 
-function pCJDNToMilankovic($iCJDN) {
-	//The Chronological Julian Day Number (CJDN) is a whole number representing a day.
-	// It's day begins at 00.00 Local Time.
-	//Calculations from http://aa.quae.nl/en/reken/juliaansedag.html .
-	
-	$iK3 = (9 * ($iCJDN - 1721120)) + 2;
-	$iX3 = floor($iK3 / 328718);
-	$iK2 = (100 * (floor(($iK3 % 328718) / 9))) + 99;
-	$iX2 = floor($iK2 / 36525);
-	$iK1 = (floor(($iK2 % 36525) / 100) * 5) + 2;
-	$iX1 = floor(((floor(($iK2 % 36525) / 100) * 5) + 2) / 153);
-	$iC0 = floor(($iX1 * 2) / 12);
-	$iYear = (100 * $iX3) + $iX2 + $iC0;
-	$iMonth = ($iX1 - (1 * $iC0)) + 3;
-	$iDay = floor(($iK1 % 153) / 5) + 1;
-	
-	$dDate = mktime(0, 0, 0, $iMonth, $iDay, $iYear);
-	return $dDate;
-}
-
-function pJulianToCJDN($baseYear, $baseMonth, $baseDay) {
-	
-	$iJ0 = 1721117;
-	$iC0 = floor(($baseMonth - 3) / 12);
-	$iJ1 = floor((1461 * ($baseYear + $iC0)) / 4);
-	$iJ2 = floor(((153 * $baseMonth) - (1836 * $iC0) - 457) / 5);
-	$iJ = $iJ1 + $iJ2 + $baseDay + $iJ0;
-	return round($iJ);
-}
-
 function pF10_CalcEaster($iYearArg, $iEDM = 3)
 {
 	//Check values of arguments
