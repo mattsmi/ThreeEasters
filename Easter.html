@@ -7,8 +7,8 @@
 
 <title>Easter Date Calculated for a given Year</title>
 <!-- Bootstrap CSS and bootstrap datepicker CSS used for styling the demo pages-->
-<link rel="stylesheet" href="./generic/css/datepicker.css">
-<link rel="stylesheet" href="./generic/css/bootstrap.min.css">
+<link rel="stylesheet" href="../generic/css/datepicker.css">
+<link rel="stylesheet" href="../generic/css/bootstrap.css">
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -22,13 +22,13 @@
 		<p>This page calculates the date of Easter for the given year,
 			according to the Gregorian, Julian, and Revised Julian (or
 			Milanković) calendars.</p>
-		<form id="formEasterSubmit" class="form-horizontal" 
+		<form id="formEasterSubmit" class="form-horizontal"
 			method="post" action="EasterDate.php">
 			<div class="form-group">
 				<label for="dp1" class="col-sm-2 control-label">Year:</label>
 				<div class="col-sm-3">
-				
-					<input type="text" placeholder="Click to choose the year!" 
+
+					<input type="text" placeholder="click to choose the year!"
 						name="yearValue" id="dp1" class="form-control">
 
 				</div>
@@ -42,30 +42,35 @@
 		</form>
 		<h3>Notes</h3>
 		<h4>Easter Dating Method</h4>
-		<p>Today all Western countries &mdash; and almost all others &mdash; use the Gregorian Calendar 
-		as their civil calendar. 
-		The <a href="http://www.vatican.va">Roman Catholic Church</a> uses the Gregorian Calendar for calculating 
-		the date of Easter, as do the
+		<p>Today all Western countries &mdash; and almost all others &mdash; use the Gregorian calendar
+		as their civil calendar.
+		The <a href="http://www.vatican.va">Roman Catholic Church</a> uses the Gregorian calendar for both calculating
+		the date of Easter and the fixed feasts of the year (<em>sanctoral cycle</em>). Similarly, the
 		<a href="http://www.ort.fi/en">Finnish Orthodox Church</a> and several Eastern Catholic Churches
-		(e.g. the <a href="http://www.bkerkelb.org/english/index.php">Syriac Maronite Church of Antioch</a>, 
-		the <a href="http://www.pgc-lb.org/home">Melkite Greek-Catholic Church</a>).</p>
-		<p>Most Eastern Orthodox Churches (e.g. the 
-		<a href="http://www.ec-patr.org">Ecumenical Patriarchate of Constantinople</a>, 
-		the <a href="http://www.ecclesia.gr">Church of Greece</a>, 
-		the <a href="http://www.antiochpatriarchate.org">Greek Orthodox Church of Antioch</a>) calculate
-		the date of Easter according to the Julian Calendar. However, the Greek Orthodox Churches 
-		(e.g. Greek, Antiochian, Alexandrian) use the Revised Julian Calendar (or Milanković Calendar), which is 
-		similar to the Gregorian Calendar, for their fixed feasts (sanctoral cycle).
-		Dates in the Revised Julian Calendar will be the same as those in the Gregorian Calendar until 2800.
-		For this reason, they are often considered to be the same.</p>
-		<p>The <a href="http://www.patrarchia.ru">Russian Orthodox Church</a> 
-		and <a href="http://www.inathos.gr">Mount Athos</a>, and one or two others, continue to use the Julian Calendar 
-		for all feasts, however.</p>
+		(e.g. the <a href="http://www.bkerkelb.org/english/index.php">Syriac Maronite Church of Antioch</a>,
+		the <a href="http://www.pgc-lb.org/home">Melkite Greek-Catholic Church</a>) use the Gregorian calendar
+		for both the fixed and movable cycles of their respective liturgical calendars.</p>
+		<p>Most Eastern Orthodox Churches (e.g. the
+		<a href="http://www.ec-patr.org">Ecumenical Patriarchate of Constantinople</a>,
+		the <a href="http://www.ecclesia.gr">Church of Greece</a>,
+		the <a href="http://www.antiochpatriarchate.org">Greek Orthodox Church of Antioch</a>, the
+		<a href="http://www.patriarchateofalexandria.com">Greek Orthodox Patriarchate of Alexandria and All Africa</a>,
+		the <a href="http://patriarhia.ro/">Romanian Orthodox Church</a>) calculate
+		the date of Easter and its dependent (<em>movable</em>) feasts according to the Julian calendar. </p>
+		<p>While these Eastern Orthodox Churches (e.g. Greek, Antiochian, Alexandrian, Romanian) may appear to use the
+		Gregorian calendar for their fixed feasts (or sanctoral cycle), they in fact use the Revised Julian calendar
+		(or Milanković calendar). This is despite the fact that they use the Julian
+		calendar for dating Easter and its dependent feasts (as noted above).
+		Dates in the Revised Julian calendar will be the same as those in the Gregorian calendar until 2800.
+		It is for this reason, they are often thought to be the same calendar.</p>
+		<p>The <a href="http://www.patrarchia.ru">Russian Orthodox Church</a>
+		and <a href="http://www.inathos.gr">Mount Athos</a>, and one or two others, continue to use the Julian calendar
+		for all feasts, fixed and movable, however.</p>
 		<p>&nbsp;</p>
 	</div>
 	<!-- Load jQuery and bootstrap datepicker scripts -->
-	<script src="./generic/js/jquery.min.js"></script>
-	<script src="./generic/js/bootstrap-datepicker.js"></script>
+	<script src="../generic/js/jquery.min.js"></script>
+	<script src="../generic/js/bootstrap-datepicker.js"></script>
 	<script type="text/javascript">
 		// When the document is ready
 		$(document).ready(function() {
